@@ -1,6 +1,8 @@
 package com.ucsal.semoc.models;
 
-public class ScheduleEventModel {
+import java.io.Serializable;
+
+public class ScheduleEventModel implements Serializable {
   private String Date;
   private String Theme;
   private String Activity;
