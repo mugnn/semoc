@@ -3,25 +3,24 @@ package com.ucsal.semoc.views;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ucsal.semoc.R;
-import com.ucsal.semoc.models.ScheduleEventModel;
+import com.ucsal.semoc.models.LecturesModel;
 
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemView> {
-  private List<ScheduleEventModel> items;
+  private List<LecturesModel> items;
   private OnItemClickListener onItemClickListener;
   public interface OnItemClickListener {
-    void onItemClick(ScheduleEventModel item);
+    void onItemClick(LecturesModel item);
   }
 
-  public ItemAdapter(List<ScheduleEventModel> items, OnItemClickListener onItemClickListener) {
+  public ItemAdapter(List<LecturesModel> items, OnItemClickListener onItemClickListener) {
     this.items = items;
     this.onItemClickListener = onItemClickListener;
   }
@@ -35,10 +34,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemView> {
 
   @Override
   public void onBindViewHolder(@NonNull ItemView holder, int position) {
-    ScheduleEventModel itemModel = items.get(position);
-    holder.setDate(itemModel.getDate());
-    holder.setTheme(itemModel.getTheme());
-    holder.setActivity(itemModel.getActivity());
+    LecturesModel itemModel = items.get(position);
+    holder.setDate(itemModel.getData());
+    holder.setTheme(itemModel.getTema());
+    holder.setActivity(itemModel.getHora());
   }
 
   @Override
