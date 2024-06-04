@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ucsal.semoc.R;
 import com.ucsal.semoc.services.ApiService;
 import com.ucsal.semoc.services.RetrofitClient;
 
@@ -31,6 +33,7 @@ public abstract class GenericList<T> extends Fragment {
   protected RecyclerView itemList;
   protected GenericItem<T> adapter;
   protected List<T> items = new ArrayList<>();
+  protected TextView title;
 
   @Nullable
   @Override
@@ -38,13 +41,19 @@ public abstract class GenericList<T> extends Fragment {
     View view = inflater.inflate(getLayoutResId(), container, false);
     Retrofit retrofit = RetrofitClient.getClient(getBaseUrl());
 
+    title = view.findViewById(R.id.textView11);
+    title.setText(setTitle());
     itemList = view.findViewById(getItemListResource());
     apiService = retrofit.create(ApiService.class);
 
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(itemList.getContext(), DividerItemDecoration.VERTICAL);
     itemList.addItemDecoration(dividerItemDecoration);
 
-    adapter = new GenericItem<>(items, this::openDetailFragment, (holder, item) -> {});
+    adapter = new GenericItem<>(items, this::openDetailFragment, (holder, item) -> {
+      holder.setDate(((Item) item).getData());
+      holder.setTheme(((Item) item).getTema());
+      holder.setActivity(((Item) item).getHora());
+    });
     itemList.setAdapter(adapter);
     itemList.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
@@ -63,11 +72,13 @@ public abstract class GenericList<T> extends Fragment {
 
   protected abstract void openDetailFragment(T item);
 
+  protected abstract String setTitle();
+
   private void loadData() {
     Call<List<T>> call = getApiCall();
     call.enqueue(new Callback<List<T>>() {
       @Override
-      public void onResponse(Call<List<T>> call, Response<List<T>> response) {
+      public void onResponse(@NonNull Call<List<T>> call, @NonNull Response<List<T>> response) {
         if (response.isSuccessful()) {
           List<T> data = response.body();
           initializeViews(data);
@@ -77,7 +88,7 @@ public abstract class GenericList<T> extends Fragment {
       }
 
       @Override
-      public void onFailure(Call<List<T>> call, Throwable t) {
+      public void onFailure(@NonNull Call<List<T>> call, @NonNull Throwable t) {
         Log.e("API request failed", "cannot load data: " + t.getMessage());
       }
     });

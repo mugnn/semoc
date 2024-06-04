@@ -16,6 +16,7 @@ public class ItemView<T> extends RecyclerView.ViewHolder {
   private final TextView Date;
   private final TextView Theme;
   private final TextView Activity;
+
   public ItemView(@NonNull View itemView) {
     super(itemView);
     Date = itemView.findViewById(R.id.date);
@@ -27,12 +28,15 @@ public class ItemView<T> extends RecyclerView.ViewHolder {
       }
     });
   }
+
   public void setDate(String date) {
     this.Date.setText(date);
   }
+
   public void setTheme(String theme) {
     this.Theme.setText(theme);
   }
+
   public void setActivity(String activity) {
     this.Activity.setText(activity);
   }

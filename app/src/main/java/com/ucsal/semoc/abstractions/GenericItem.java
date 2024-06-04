@@ -21,6 +21,7 @@ public class GenericItem<T> extends RecyclerView.Adapter<ItemView<T>> {
   public interface OnItemClickListener<T> {
     void onItemClick(T item);
   }
+
   public interface ItemBinder<T> {
     void bind(ItemView<T> holder, T item);
   }
@@ -42,6 +43,11 @@ public class GenericItem<T> extends RecyclerView.Adapter<ItemView<T>> {
   public void onBindViewHolder(@NonNull ItemView<T> holder, int position) {
     T item = items.get(position);
     itemBinder.bind(holder, item);
+    holder.itemView.setOnClickListener(v -> {
+      if (onItemClickListener != null) {
+        onItemClickListener.onItemClick(item);
+      }
+    });
   }
 
   @Override

@@ -1,10 +1,11 @@
 package com.ucsal.semoc.models;
 
 import com.google.gson.annotations.SerializedName;
+import com.ucsal.semoc.abstractions.Item;
 
 import java.io.Serializable;
 
-public class LecturesModel implements Serializable {
+public class LecturesModel extends Item implements Serializable {
   @SerializedName("id")
   private int id;
 
