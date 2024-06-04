@@ -7,39 +7,45 @@
 
 
     <TextView
-        android:id="@+id/date"
-        android:layout_width="87dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="36dp"
+        android:id="@+id/theme"
+        android:layout_width="246dp"
+        android:layout_height="21dp"
         android:fontFamily="@font/inter_bold"
-        android:text="20/10/2023 12:00"
+        android:text="tema"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.506" />
-
-    <TextView
-        android:id="@+id/theme"
-        android:layout_width="111dp"
-        android:layout_height="55dp"
-        android:fontFamily="@font/inter_bold"
-        android:text="Democracia e cidadania"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/activity"
-        app:layout_constraintHorizontal_bias="0.525"
-        app:layout_constraintStart_toEndOf="@+id/date"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.755" />
+        app:layout_constraintVertical_bias="0.202" />
 
     <TextView
         android:id="@+id/activity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="44dp"
+        android:layout_width="83dp"
+        android:layout_height="16dp"
         android:fontFamily="@font/inter_bold"
-        android:text="Abertura"
+        android:text="hora"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.506" />
+        app:layout_constraintVertical_bias="0.702" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="87dp"
+        android:layout_height="18dp"
+        android:fontFamily="@font/inter_bold"
+        android:text="data"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.463" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

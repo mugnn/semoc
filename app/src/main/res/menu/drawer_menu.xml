@@ -7,10 +7,15 @@
         android:title="Página inicial"
         tools:ignore="HardcodedText" />
     <item
-        android:id="@+id/nav_schedule"
-        android:icon="@drawable/schedule_icon"
-        android:title="Programação"
-        tools:ignore="HardcodedText"/>
+        android:id="@+id/nav_lectures"
+        android:icon="@drawable/lecture_icon"
+        android:title="Palestras"
+        tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/nav_minicourses"
+        android:icon="@drawable/minicourses_icon"
+        android:title="Minicursos"
+        tools:ignore="HardcodedText" />
     <item
         android:id="@+id/nav_info"
         android:icon="@drawable/info_icon"

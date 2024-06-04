@@ -1,7 +1,8 @@
 package com.ucsal.semoc.fragments;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,44 +10,57 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ucsal.semoc.R;
-import com.ucsal.semoc.models.ScheduleEventModel;
-import com.ucsal.semoc.views.ItemAdapter;
+import com.ucsal.semoc.fragments.subfragments.SubLectureFragment;
+import com.ucsal.semoc.models.LecturesModel;
+import com.ucsal.semoc.services.ApiService;
+import com.ucsal.semoc.services.RetrofitClient;
+import com.ucsal.semoc.adapters.ItemAdapter;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-public class ScheduleFragment extends Fragment {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
+public class LectureFragment extends Fragment {
+  private ApiService apiService;
 
   private RecyclerView itemList;
 
   private ItemAdapter adapter;
-  public static List<ScheduleEventModel> items = new ArrayList<>();
+
+  public static List<LecturesModel> items = new ArrayList<>();
 
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.schedule_fragment, container, false);
+    Retrofit retrofit = RetrofitClient.getClient("https://raw.githubusercontent.com/ucsal/semoc/main/api/");
+
     itemList = view.findViewById(R.id.itemList);
-    initializeViews();
-    adapter = new ItemAdapter(items, new ItemAdapter.OnItemClickListener() {
-      @Override
-      public void onItemClick(ScheduleEventModel item) {
-        openSubScheduleFragment(item);
-      }
-    });
+    apiService = retrofit.create(ApiService.class);
+
+    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(itemList.getContext(), DividerItemDecoration.VERTICAL);
+    itemList.addItemDecoration(dividerItemDecoration);
+
+    adapter = new ItemAdapter(items, this::openSubLectureFragment);
     itemList.setAdapter(adapter);
     itemList.setLayoutManager(new LinearLayoutManager(view.getContext()));
+
+    loadData();
+
     return view;
   }
 
-  private void openSubScheduleFragment(ScheduleEventModel item) {
-    SubScheduleFragment subFragment = new SubScheduleFragment();
+  private void openSubLectureFragment(LecturesModel item) {
+    SubLectureFragment subFragment = new SubLectureFragment();
     Bundle args = new Bundle();
     args.putSerializable("item", item);
     subFragment.setArguments(args);
@@ -56,27 +70,31 @@ public class ScheduleFragment extends Fragment {
             .commit();
   }
 
-  private void initializeViews() {
-    if (items.isEmpty()) {
-      Random random = new Random();
-
-      String[] dates = {"20/10/2023 12:00", "20/10/2023 14:00", "21/10/2023 10:00", "21/10/2023 11:00", "22/10/2023 09:00", "23/10/2023 14:00"};
-      String[] themes = {"Democriacia", "Passado, Presente e Futuro", "Psicanálise", "Educação"};
-      String[] activities = {"Abertura", "Mesa Redonda", "Minicurso", "Pesquisa"};
-
-      for (int i = 0; i < 10; i++) {
-        ScheduleEventModel model = new ScheduleEventModel();
-
-        String date = dates[random.nextInt(dates.length)];
-        String theme = themes[random.nextInt(themes.length)];
-        String activity = activities[random.nextInt(activities.length)];
-
-        model.setDate(date);
-        model.setTheme(theme);
-        model.setActivity(activity);
-
-        items.add(model);
+  private void loadData() {
+    Call<List<LecturesModel>> call = apiService.getLectures();
+    call.enqueue(new Callback<List<LecturesModel>>() {
+      @Override
+      public void onResponse(Call<List<LecturesModel>> call, Response<List<LecturesModel>> response) {
+        if (response.isSuccessful()) {
+          List<LecturesModel> lectures = response.body();
+          initializeViews(lectures);
+        } else {
+          Log.e("API error", "request failed");
+        }
       }
+
+      @Override
+      public void onFailure(Call<List<LecturesModel>> call, Throwable t) {
+        Log.e("API request failed", "cannot load data: " + t.getMessage());
+      }
+    });
+  }
+
+  @SuppressLint("NotifyDataSetChanged")
+  private void initializeViews(List<LecturesModel> lectures) {
+    if (items.isEmpty()) {
+      items.addAll(lectures);
+      adapter.notifyDataSetChanged();
     }
   }
 }

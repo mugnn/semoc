@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 import com.ucsal.semoc.R;
-import com.ucsal.semoc.views.ImageSliderAdapter;
+import com.ucsal.semoc.adapters.ImageSliderAdapter;
 
 public class HomeFragment extends Fragment {
   private ViewPager2 viewPager;
@@ -22,7 +22,7 @@ public class HomeFragment extends Fragment {
           R.drawable.image_carousel_2,
           R.drawable.image_carousel_3
   };
-  private int delay = 6000;
+  private final int delay = 6000;
 
   private final Runnable slideRunnable = new Runnable() {
     @Override

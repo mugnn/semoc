@@ -1,4 +1,4 @@
-package com.ucsal.semoc.fragments;
+package com.ucsal.semoc.fragments.subfragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,9 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.ucsal.semoc.R;
-import com.ucsal.semoc.models.ScheduleEventModel;
+import com.ucsal.semoc.models.LecturesModel;
 
-public class SubScheduleFragment extends Fragment {
+public class SubLectureFragment extends Fragment {
   private TextView textViewDate;
   private TextView textViewTheme;
   private TextView textViewActivity;
@@ -35,16 +35,16 @@ public class SubScheduleFragment extends Fragment {
     textViewActivity = view.findViewById(R.id.sub_activity);
 
     if (getArguments() != null) {
-      ScheduleEventModel item = (ScheduleEventModel) getArguments().getSerializable("item");
+      LecturesModel item = (LecturesModel) getArguments().getSerializable("item");
       if (item != null) {
         updateUIWithEventDetails(item);
       }
     }
     return view;
   }
-  private void updateUIWithEventDetails(ScheduleEventModel item) {
-    textViewDate.setText(item.getDate());
-    textViewTheme.setText(item.getTheme());
-    textViewActivity.setText(item.getActivity());
+  private void updateUIWithEventDetails(LecturesModel item) {
+    textViewDate.setText(item.getData());
+    textViewTheme.setText(item.getTema());
+    textViewActivity.setText(item.getHora());
   }
 }

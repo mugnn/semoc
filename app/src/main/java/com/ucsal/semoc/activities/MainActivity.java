@@ -16,7 +16,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.ucsal.semoc.fragments.HomeFragment;
 import com.ucsal.semoc.R;
 import com.ucsal.semoc.fragments.InfoFragment;
-import com.ucsal.semoc.fragments.ScheduleFragment;
+import com.ucsal.semoc.fragments.LectureFragment;
 
 public class MainActivity extends AppCompatActivity {
   private DrawerLayout drawerLayout;
@@ -44,8 +44,10 @@ public class MainActivity extends AppCompatActivity {
 
       if (id == R.id.nav_home) {
         replaceFragment(new HomeFragment());
-      } else if (id == R.id.nav_schedule) {
-        replaceFragment(new ScheduleFragment());
+      } else if (id == R.id.nav_lectures) {
+        replaceFragment(new LectureFragment());
+      } else if (id == R.id.nav_minicourses) {
+        replaceFragment(new LectureFragment());
       } else if (id == R.id.nav_info) {
         replaceFragment(new InfoFragment());
       }

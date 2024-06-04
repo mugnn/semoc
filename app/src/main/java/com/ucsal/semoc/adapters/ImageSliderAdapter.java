@@ -1,4 +1,4 @@
-package com.ucsal.semoc.views;
+package com.ucsal.semoc.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

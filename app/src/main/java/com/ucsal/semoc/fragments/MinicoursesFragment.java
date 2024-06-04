@@ -1,2 +1,4 @@
-package com.ucsal.semoc.fragments;public class MinicoursesFragment {
+package com.ucsal.semoc.fragments;
+
+public class MinicoursesFragment {
 }

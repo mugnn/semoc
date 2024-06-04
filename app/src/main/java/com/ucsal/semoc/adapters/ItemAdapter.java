@@ -1,4 +1,4 @@
-package com.ucsal.semoc.views;
+package com.ucsal.semoc.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +14,8 @@ import com.ucsal.semoc.models.LecturesModel;
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemView> {
-  private List<LecturesModel> items;
-  private OnItemClickListener onItemClickListener;
+  private final List<LecturesModel> items;
+  private final OnItemClickListener onItemClickListener;
   public interface OnItemClickListener {
     void onItemClick(LecturesModel item);
   }
@@ -45,10 +45,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemView> {
     return items.size();
   }
 
-  class ItemView extends RecyclerView.ViewHolder {
-    private TextView Date;
-    private TextView Theme;
-    private TextView Activity;
+  public class ItemView extends RecyclerView.ViewHolder {
+    private final TextView Date;
+    private final TextView Theme;
+    private final TextView Activity;
     public ItemView(@NonNull View itemView) {
       super(itemView);
       Date = itemView.findViewById(R.id.date);
