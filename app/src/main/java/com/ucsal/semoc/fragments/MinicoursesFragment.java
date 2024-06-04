@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.ucsal.semoc.R;
 import com.ucsal.semoc.abstractions.GenericList;
-import com.ucsal.semoc.fragments.subfragments.SubLectureFragment;
+import com.ucsal.semoc.fragments.subfragments.ListItemFragment;
 import com.ucsal.semoc.models.MinicoursesModel;
 
 import java.util.List;
@@ -34,7 +34,7 @@ public class MinicoursesFragment extends GenericList<MinicoursesModel> {
 
   @Override
   protected void openDetailFragment(MinicoursesModel item) {
-    SubLectureFragment subFragment = new SubLectureFragment();
+    ListItemFragment subFragment = new ListItemFragment();
     Bundle args = new Bundle();
     args.putSerializable("item", item);
     subFragment.setArguments(args);
