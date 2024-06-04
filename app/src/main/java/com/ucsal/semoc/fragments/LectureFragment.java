@@ -19,7 +19,7 @@ public class LectureFragment extends GenericList<LecturesModel> {
 
   @Override
   protected int getLayoutResId() {
-    return R.layout.schedule_fragment;
+    return R.layout.list_fragment;
   }
 
   @Override
@@ -46,6 +46,6 @@ public class LectureFragment extends GenericList<LecturesModel> {
 
   @Override
   protected String setTitle() {
-    return "Palestra";
+    return "Palestras";
   }
 }

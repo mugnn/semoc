@@ -41,7 +41,7 @@ public abstract class GenericList<T> extends Fragment {
     View view = inflater.inflate(getLayoutResId(), container, false);
     Retrofit retrofit = RetrofitClient.getClient(getBaseUrl());
 
-    title = view.findViewById(R.id.textView11);
+    title = view.findViewById(R.id.list_fragment_title);
     title.setText(setTitle());
     itemList = view.findViewById(getItemListResource());
     apiService = retrofit.create(ApiService.class);
