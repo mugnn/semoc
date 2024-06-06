@@ -34,7 +34,7 @@ public class MinicoursesFragment extends GenericList<MinicoursesModel> {
 
   @Override
   protected void openDetailFragment(MinicoursesModel item) {
-    ListItemFragment subFragment = new ListItemFragment();
+    ListItemFragment subFragment = new ListItemFragment("Instrutor");
     Bundle args = new Bundle();
     args.putSerializable("item", item);
     subFragment.setArguments(args);

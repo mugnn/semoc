@@ -84,11 +84,11 @@ public class MinicoursesModel extends Item implements Serializable {
     Local = local;
   }
 
-  public int getInstrutor_id() {
+  public int getEntity() {
     return instrutor_id;
   }
 
-  public void setInstrutor_id(int instrutor_id) {
+  public void setEntity(int instrutor_id) {
     this.instrutor_id = instrutor_id;
   }
 

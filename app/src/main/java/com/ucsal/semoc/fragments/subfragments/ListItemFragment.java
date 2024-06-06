@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.ucsal.semoc.R;
 import com.ucsal.semoc.abstractions.Item;
+import com.ucsal.semoc.fragments.EntityFragment;
 
 public class ListItemFragment extends Fragment {
   private TextView textViewDate;
@@ -23,6 +24,14 @@ public class ListItemFragment extends Fragment {
   private TextView textViewLocal;
   private TextView textViewFormato;
   private TextView textViewNivel;
+  private final String nextButtonName;
+  private Button nextButton;
+
+  private Item currentItem;
+
+  public ListItemFragment(String nextButtonName) {
+    this.nextButtonName = "Ver " + nextButtonName;
+  }
 
   @Nullable
   @Override
@@ -31,6 +40,9 @@ public class ListItemFragment extends Fragment {
 
     Button backButton = view.findViewById(R.id.button_back);
     backButton.setOnClickListener(v -> getParentFragmentManager().popBackStack());
+
+    nextButton = view.findViewById(R.id.button_entity_run);
+    nextButton.setText(nextButtonName);
 
     textViewDate = view.findViewById(R.id.sub_date);
     textViewTheme = view.findViewById(R.id.sub_theme);
@@ -43,11 +55,25 @@ public class ListItemFragment extends Fragment {
 
     if (getArguments() != null) {
       Item item = (Item) getArguments().getSerializable("item");
+      this.currentItem = item;
       if (item != null) {
         updateUIWithEventDetails(item);
       }
     }
     return view;
+  }
+
+  @Override
+  public void onResume() {
+    nextButton.setOnClickListener(v -> {
+      requireActivity()
+              .getSupportFragmentManager()
+              .beginTransaction()
+              .replace(R.id.fragment_container, new EntityFragment(currentItem.getEntity()))
+              .addToBackStack(null)
+              .commit();
+    });
+    super.onResume();
   }
 
   private void updateUIWithEventDetails(Item item) {

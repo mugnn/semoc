@@ -18,4 +18,6 @@ public abstract class Item implements Serializable {
   public abstract String getFormato();
 
   public abstract String getNivel();
+
+  public abstract int getEntity();
 }

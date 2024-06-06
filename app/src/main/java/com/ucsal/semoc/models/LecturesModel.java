@@ -84,11 +84,11 @@ public class LecturesModel extends Item implements Serializable {
     Local = local;
   }
 
-  public int getPalestrante_id() {
+  public int getEntity() {
     return palestrante_id;
   }
 
-  public void setPalestrante_id(int palestrante_id) {
+  public void setEntity(int palestrante_id) {
     this.palestrante_id = palestrante_id;
   }
 
