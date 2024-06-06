@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,7 @@ public abstract class GenericList<T> extends Fragment {
   protected GenericItem<T> adapter;
   protected List<T> items = new ArrayList<>();
   protected TextView title;
+  protected SearchView searchView;
 
   @Nullable
   @Override
@@ -44,6 +46,7 @@ public abstract class GenericList<T> extends Fragment {
     title = view.findViewById(R.id.list_fragment_title);
     title.setText(setTitle());
     itemList = view.findViewById(getItemListResource());
+    searchView = view.findViewById(R.id.searchView);
     apiService = retrofit.create(ApiService.class);
 
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(itemList.getContext(), DividerItemDecoration.VERTICAL);
@@ -58,6 +61,19 @@ public abstract class GenericList<T> extends Fragment {
     itemList.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
     loadData();
+
+    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+      @Override
+      public boolean onQueryTextSubmit(String query) {
+        return false;
+      }
+
+      @Override
+      public boolean onQueryTextChange(String newText) {
+        adapter.filter(newText);
+        return true;
+      }
+    });
 
     return view;
   }
@@ -98,6 +114,6 @@ public abstract class GenericList<T> extends Fragment {
   private void initializeViews(List<T> data) {
     items.clear();
     items.addAll(data);
-    adapter.notifyDataSetChanged();
+    adapter.updateItems(data);
   }
 }
